@@ -38,3 +38,5 @@ ResultElement = WebDriverWait(driver, 10).until(lambda driver: driver.find_eleme
 print(f"#### Result <{args.source_language}> -> <{args.destination_language}>")
 print(ResultElement.text)
 print("####")
+
+driver.quit()
