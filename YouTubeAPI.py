@@ -61,8 +61,16 @@ class YouTubeAPI(object):
 
 	def get_PlayLists(self):
 		self.__PlayLists = []
-		for item in json.loads(requests.get(url="https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId={}&key={}".format(self.ChannelID,self.ChannelAPIKey)).text)['items']:
-			self.__PlayLists.append({'Name':item['snippet']['title'],'ID':item['id'],'CreatedAt':item['snippet']['publishedAt'],'Description':item['snippet']['description']})
+		url = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&channelId={}&key={}".format(self.ChannelID,self.ChannelAPIKey)
+		Response = json.loads(requests.get(url=url).text)
+		for item in Response['items']:
+			self.__PlayLists.append(item)
+
+		while Response.get('nextPageToken'):
+			url = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&pageToken={}&channelId={}&key={}".format(Response.get('nextPageToken'),self.ChannelID,self.ChannelAPIKey) 
+			Response = json.loads(requests.get(url=url).text)
+			for item in Response['items']:
+				self.__PlayLists.append(item)
 
 		return self.__PlayLists
 
@@ -108,15 +116,15 @@ class YouTubeAPI(object):
 	def __format__(self,r):
 		return "{}(ChannelID = {}, ChannelAPIKey = {})".format(self.__class__.__name__, self.ChannelID, self.ChannelAPIKey)
 
-CHNID = os.getenv('YTCHN')
-CHAPI = os.getenv('YTAPI')
+if __name__ == '__main__':
 
-YT = YouTubeAPI(ChannelID = CHNID, ChannelAPIKey = CHAPI)
+	CHNID = os.getenv('YTCHN')
+	CHAPI = os.getenv('YTAPI')
 
-pprint(YT.ChannelName)
-pprint(YT.ChannelDescription)
-pprint(YT.ChannelCreationDate)
-pprint(YT.ChannelPlayLists)
-pprint(YT.ChannelVideos)
+	YT = YouTubeAPI(ChannelID = CHNID, ChannelAPIKey = CHAPI)
+
+
+	for playlist in YT.get_PlayLists():
+		print(playlist)
 #for video in YT.get_VideosFromPlaylists():
 #	print(video)
