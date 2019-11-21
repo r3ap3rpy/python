@@ -1,6 +1,6 @@
 import threading, time, random, queue
 
-class Prod:
+class Producer:
 	def __init__(self):
 		self.product = ['nail','fork','hammer', 'cabbage']
 		self.next = 0
