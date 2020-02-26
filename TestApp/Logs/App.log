@@ -1,0 +1,4 @@
+2020-02-26 19:08:22,059 - TestApp - INFO - Folder is good: D:\GitRepos\python\TestApp\Logs
+2020-02-26 19:08:22,060 - TestApp - INFO - Folder is good: D:\GitRepos\python\TestApp\Config
+2020-02-26 19:08:41,390 - TestApp - INFO - Folder is good: D:\GitRepos\python\TestApp\Logs
+2020-02-26 19:08:41,391 - TestApp - CRITICAL - Missing folder, aborting execution!
