@@ -2,8 +2,6 @@ from collections import defaultdict
 import os
 from timeit import timeit
 
-
-
 class InvalidPath(Exception):
     ...
 
